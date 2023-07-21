@@ -50,7 +50,7 @@ jobs:
         echo "Copy package to Jfrog"
         cp target/helloworld-html5.war target/helloworld-html5_$NOW.war
         rm -rf target/helloworld-html5.war
-        jf rt u --server-id=jfrogdemo --flat=false --include-dirs=true --recursive=true "target/*.war" maven-demo/
+        jf rt u --server-id=jfrogdemo --flat=false --include-dirs=true --recursive=true "target/*.war" demo/
         echo "###########################################"
     
   
