@@ -23,6 +23,8 @@ RUN chown jboss:jboss $JBOSS_HOME/standalone/deployments/helloworld-html5.war
 
 RUN chown jboss:root $JBOSS_HOME/standalone/configuration/standalone-openshift.xml
 
+# Disabling JMS Broker
+RUN echo hi 
 ENV DISABLE_EMBEDDED_JMS_BROKER=true
 
 # Important, use jboss user to run image
