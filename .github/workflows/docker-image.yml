@@ -37,8 +37,7 @@ jobs:
       run: |
         mvn clean package wildfly:deploy
         NOW=$(date +"%Y%m%dT%H%M")
-        cp target/helloworld-html5.war target/helloworld-html5_$NOW.war
-        rm -rf target/helloworld-html5.war
+       
         
 
         echo "Building docker image for github container registry"
@@ -49,6 +48,8 @@ jobs:
         
         echo "##########################################"
         echo "Copy package to Jfrog"
+        cp target/helloworld-html5.war target/helloworld-html5_$NOW.war
+        rm -rf target/helloworld-html5.war
         jf rt u --server-id=jfrogdemo --flat=false --include-dirs=true --recursive=true "target/*.war" maven-demo/
         echo "###########################################"
     
