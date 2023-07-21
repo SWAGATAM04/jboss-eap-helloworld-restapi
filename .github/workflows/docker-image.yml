@@ -36,11 +36,16 @@ jobs:
     - name: Build the Docker image
       run: |
         mvn clean package wildfly:deploy
+        NOW=$(date +"%Y%m%dT%H%M")
+        cp target/helloworld-html5.war target/helloworld-html5_$NOW.war
+        rm -rf target/helloworld-html5.war
+        
+
         echo "Building docker image for github container registry"
         docker build . --file Dockerfile --tag ghcr.io/swagatam04/jboss-eap-api:${{ github.sha }}
         
         echo "Building docker image for jfrog registry"
-        docker build . --file Dockerfile --tag swagatam04.jfrog.io/demo-docker/jboss-eap-api:${{ github.sha }}
+        docker build . --file Dockerfile --tag swagatamjfrog04.jfrog.io/demodocker/jboss-eap-api:${{ github.sha }}
         
         echo "##########################################"
         echo "Copy package to Jfrog"
@@ -65,8 +70,8 @@ jobs:
           docker push ghcr.io/swagatam04/jboss-eap-api:${{ github.sha }}
           
           echo "Pushing the image to jfrog repo"
-          echo ${{ secrets.JFROGSECRET }} | docker login -uskundu012@gmail.com swagatam04.jfrog.io --password-stdin 
-          docker push swagatam04.jfrog.io/demo-docker/jboss-eap-api:${{ github.sha }}
+          echo ${{ secrets.JFROGSECRET }} | docker login -udemo swagatamjfrog04.jfrog.io --password-stdin 
+          docker push swagatamjfrog04.jfrog.io/demodocker/jboss-eap-api:${{ github.sha }}
           
           
   image-scan:
