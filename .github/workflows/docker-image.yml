@@ -69,7 +69,7 @@ jobs:
           JFROGSECRET: ${{ secrets.JFROGSECRET }}
         run: |
           echo "Pushing image to github container registry"
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin 
+          echo ${{ secrets.GITHUBTOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin 
           docker push ghcr.io/swagatam04/jboss-eap-api:${{ github.sha }}
           
           echo "Pushing the image to jfrog repo"
